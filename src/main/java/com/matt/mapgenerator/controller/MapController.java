@@ -20,7 +20,7 @@ public class MapController {
 
     @GetMapping(value = "/cavern/{cavernWidth}/{cavernHeight}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getCavernMap(@PathVariable("cavernWidth") int cavernWidth, @PathVariable("cavernHeight") int cavernHeight) {
-        int[][] cavernMap = cavernService.generateCavern(cavernWidth, cavernHeight);
+        int[][] cavernMap = cavernService.setWidth(cavernWidth).setHeight(cavernHeight).build();
 
         if(cavernMap.length == 0) {
             return ResponseEntity.badRequest().body("Map length 0");

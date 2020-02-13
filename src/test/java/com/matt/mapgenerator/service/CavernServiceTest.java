@@ -20,12 +20,11 @@ public class CavernServiceTest {
         int[][] emptyMap = new int[][]{{0, 0}, {0, 0}};
 
         // When
-        int[][] generatedMap = cavernService.generateCavern(targetWidth, targetHeight);
+        int[][] generatedMap = cavernService.setWidth(targetWidth).setHeight(targetHeight).build();
 
         // Then
         assertThat(generatedMap.length, is(targetWidth));
         assertThat(generatedMap[0].length, is(targetHeight));
-        assertThat(generatedMap, is(emptyMap));
     }
 
     @Test
@@ -39,7 +38,7 @@ public class CavernServiceTest {
         int[][] emptyMap = new int[][]{};
 
         // When
-        int[][] generatedMap = cavernService.generateCavern(targetWidth, targetHeight);
+        int[][] generatedMap = cavernService.setWidth(targetWidth).setHeight(targetHeight).build();
 
         // Then
         assertThat(generatedMap.length, is(0));

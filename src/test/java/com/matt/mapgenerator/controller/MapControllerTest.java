@@ -30,29 +30,38 @@ public class MapControllerTest {
         int targetWidth = 20;
         int targetHeight = 10;
 
-        when(cavernService.generateCavern(targetWidth, targetHeight)).thenReturn(new int[targetWidth][targetHeight]);
+        when(cavernService.build()).thenReturn(new int[targetWidth][targetHeight]);
+        when(cavernService.setHeight(targetHeight)).thenReturn(cavernService);
+        when(cavernService.setWidth(targetWidth)).thenReturn(cavernService);
 
         // When
         ResponseEntity response = mapController.getCavernMap(targetWidth, targetHeight);
 
         // Then
-        verify(cavernService).generateCavern(targetWidth, targetHeight);
+        verify(cavernService).setHeight(targetHeight);
+        verify(cavernService).setWidth(targetWidth);
+        verify(cavernService).build();
     }
 
     @Test
     public void shouldReturnMapJson() {
         // Given
+        MapController mapController = new MapController(cavernService);
+
         int targetWidth = 2;
         int targetHeight = 2;
 
-        when(cavernService.generateCavern(targetWidth, targetHeight)).thenReturn(new int[][]{{0,0},{0,0}});
+        when(cavernService.build()).thenReturn(new int[][]{{0,0},{0,0}});
 
         // When
-        MapController mapController = new MapController(cavernService);
+        when(cavernService.build()).thenReturn(new int[targetWidth][targetHeight]);
+        when(cavernService.setHeight(targetHeight)).thenReturn(cavernService);
+        when(cavernService.setWidth(targetWidth)).thenReturn(cavernService);
+
         ResponseEntity response = mapController.getCavernMap(targetWidth, targetHeight);
 
         // Then
-        verify(cavernService).generateCavern(targetWidth, targetHeight);
+        verify(cavernService).build();
         System.out.println(response);
         assertThat(response.getBody(), is("[[0,0],[0,0]]"));
     }
