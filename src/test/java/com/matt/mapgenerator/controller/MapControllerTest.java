@@ -30,6 +30,8 @@ public class MapControllerTest {
         int targetWidth = 20;
         int targetHeight = 10;
 
+        when(cavernService.generateCavern(targetWidth, targetHeight)).thenReturn(new int[targetWidth][targetHeight]);
+
         // When
         ResponseEntity response = mapController.getCavernMap(targetWidth, targetHeight);
 
