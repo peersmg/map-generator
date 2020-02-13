@@ -2,6 +2,7 @@ package com.matt.mapgenerator.controller;
 
 import com.google.gson.Gson;
 import com.matt.mapgenerator.service.CavernService;
+import com.matt.mapgenerator.utils.MapSaver;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class MapController {
         }
         Gson gson = new Gson();
         String jsonMap = gson.toJson(cavernMap);
+
+        MapSaver mapSaver = new MapSaver();
+        mapSaver.saveMap(cavernMap);
 
         return new ResponseEntity(jsonMap, HttpStatus.OK);
     }
